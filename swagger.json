@@ -1,0 +1,353 @@
+{
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Notes management service",
+    "title": "Notes Service.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "paths": {
+    "/info": {
+      "get": {
+        "description": "Get service information",
+        "tags": [
+          "info"
+        ],
+        "summary": "Get service information",
+        "operationId": "info-status",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/InfoResponse"
+          }
+        }
+      }
+    },
+    "/notes": {
+      "get": {
+        "description": "Returns the entire list of notes",
+        "tags": [
+          "notes"
+        ],
+        "summary": "Fetches all the notes",
+        "operationId": "notes-fetchAll",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/FetchAllNotesResponse"
+          }
+        }
+      },
+      "post": {
+        "description": "Adds a new note",
+        "tags": [
+          "notes"
+        ],
+        "summary": "Add a new note",
+        "operationId": "notes-add",
+        "parameters": [
+          {
+            "description": "Payload",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddNoteRequestBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/Success"
+          }
+        }
+      }
+    },
+    "/notes/{id}": {
+      "get": {
+        "description": "Fetch a single note by index",
+        "tags": [
+          "notes"
+        ],
+        "summary": "Fetch a single note",
+        "operationId": "notes-fetchOne",
+        "parameters": [
+          {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "NoteId",
+            "description": "Index of Note",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/FetchNoteResponse"
+          }
+        }
+      },
+      "put": {
+        "description": "Updates the note at the specified index",
+        "tags": [
+          "notes"
+        ],
+        "summary": "Updates a single note",
+        "operationId": "notes-update",
+        "parameters": [
+          {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "NoteId",
+            "description": "Index of Note",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Payload",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddNoteRequestBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/Success"
+          }
+        }
+      },
+      "delete": {
+        "description": "Removes a single note by index",
+        "tags": [
+          "notes"
+        ],
+        "summary": "Removes a single note",
+        "operationId": "notes-remove",
+        "parameters": [
+          {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "NoteId",
+            "description": "Index of Note",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AddNoteRequest": {
+      "type": "object",
+      "required": [
+        "Body"
+      ],
+      "properties": {
+        "Body": {
+          "description": "Payload",
+          "$ref": "#/definitions/AddNoteRequestBody"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "AddNoteRequestBody": {
+      "description": "AddNoteRequestBody",
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "title": {
+          "type": "string",
+          "x-go-name": "Title"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "DeleteNoteRequest": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "description": "Index of Note",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "x-go-name": "NoteId"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "FetchAllNotesResponse": {
+      "description": "The response containing the list of Notes",
+      "type": "object",
+      "required": [
+        "notes"
+      ],
+      "properties": {
+        "notes": {
+          "x-go-name": "Notes",
+          "$ref": "#/definitions/FetchAllNotesResponseBody"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "FetchAllNotesResponseBody": {
+      "type": "object",
+      "properties": {
+        "notes": {
+          "description": "The Note List",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          },
+          "x-go-name": "Notes"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "FetchNoteRequest": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "description": "Index of Note",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "x-go-name": "NoteId"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "FetchNoteResponse": {
+      "description": "The response for a single note fetch",
+      "type": "object",
+      "required": [
+        "body"
+      ],
+      "properties": {
+        "body": {
+          "x-go-name": "Body",
+          "$ref": "#/definitions/Note"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "Info": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string",
+          "x-go-name": "Service"
+        },
+        "status": {
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "InfoResponse": {
+      "description": "InfoResponse",
+      "type": "object",
+      "required": [
+        "body"
+      ],
+      "properties": {
+        "body": {
+          "x-go-name": "Body",
+          "$ref": "#/definitions/Info"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "Note": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "title": {
+          "type": "string",
+          "x-go-name": "Title"
+        }
+      },
+      "x-go-package": "identity/app"
+    },
+    "Success": {
+      "description": "Success",
+      "type": "object",
+      "x-go-package": "identity/app"
+    },
+    "UpdateNoteRequest": {
+      "type": "object",
+      "required": [
+        "id",
+        "Body"
+      ],
+      "properties": {
+        "Body": {
+          "description": "Payload",
+          "$ref": "#/definitions/AddNoteRequestBody"
+        },
+        "id": {
+          "description": "Index of Note",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "x-go-name": "NoteId"
+        }
+      },
+      "x-go-package": "identity/app"
+    }
+  },
+  "responses": {
+    "FetchAllNotesResponse": {
+      "description": "The response containing the list of Notes",
+      "schema": {
+        "$ref": "#/definitions/FetchAllNotesResponseBody"
+      }
+    },
+    "FetchNoteResponse": {
+      "description": "The response for a single note fetch",
+      "schema": {
+        "$ref": "#/definitions/Note"
+      }
+    },
+    "InfoResponse": {
+      "description": "InfoResponse",
+      "schema": {
+        "$ref": "#/definitions/Info"
+      }
+    },
+    "Success": {
+      "description": "Success"
+    }
+  }
+}

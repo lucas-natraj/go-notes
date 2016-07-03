@@ -1,0 +1,73 @@
+{
+	"variables": [],
+	"info": {
+		"name": "go-notes",
+		"_postman_id": "b6ce2505-7871-b0bd-c058-e66f929ce66d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "new note",
+			"request": {
+				"url": "http://localhost:3000/notes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/javascript",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Wonderwall Lyrics\",\n    \"content\": \"Today is gonna be the day that they're gonna throw it back to you\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "all notes",
+			"request": {
+				"url": "http://localhost:3000/notes",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "information",
+			"request": {
+				"url": "http://localhost:3000/info",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "note at index",
+			"request": {
+				"url": "http://localhost:3000/notes/0",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

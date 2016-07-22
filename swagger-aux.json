@@ -1,0 +1,12 @@
+{
+  "securityDefinitions": {
+    "my_auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "scopes": {
+        "email": "default scope"
+      }
+    }
+  }
+}

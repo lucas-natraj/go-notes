@@ -33,3 +33,7 @@ _testmain.go
 bin/
 pkg/
 src/notes/debug
+
+src/github.com
+src/golang.org
+src/sourcegraph.com

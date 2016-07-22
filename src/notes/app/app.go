@@ -17,11 +17,12 @@
 package app
 
 import (
-	"net/http"
-	"github.com/gorilla/pat"
 	"encoding/json"
-	"github.com/rs/cors"
+	"net/http"
 	"strconv"
+
+	"github.com/gorilla/pat"
+	"github.com/rs/cors"
 )
 
 type NotesService struct {
@@ -43,13 +44,16 @@ var note_service = NewNotesService()
 //
 // Get service information
 //
+// Security:
+//   my_auth: email
+//
 // Responses:
 // 	200: InfoResponse
 func (ns *NotesService) Info(w http.ResponseWriter, r *http.Request) {
 
 	info := &Info{
 		Service: "Notes",
-		Status: "ok",
+		Status:  "ok",
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -62,6 +66,9 @@ func (ns *NotesService) Info(w http.ResponseWriter, r *http.Request) {
 //
 // Adds a new note
 //
+// Security:
+//   my_auth: email
+//
 // Responses:
 // 	200: Success
 func (ns *NotesService) AddNote(w http.ResponseWriter, r *http.Request) {
@@ -73,7 +80,7 @@ func (ns *NotesService) AddNote(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var Note = Note{
-		Title: body.Title,
+		Title:   body.Title,
 		Content: body.Content,
 	}
 
@@ -85,6 +92,9 @@ func (ns *NotesService) AddNote(w http.ResponseWriter, r *http.Request) {
 // Fetches all the notes
 //
 // Returns the entire list of notes
+//
+// Security:
+//   my_auth: email
 //
 // Responses:
 // 	200: FetchAllNotesResponse
@@ -103,6 +113,9 @@ func (ns *NotesService) FetchAllNotes(w http.ResponseWriter, r *http.Request) {
 // Fetch a single note
 //
 // Fetch a single note by index
+//
+// Security:
+//   my_auth: email
 //
 // Responses:
 // 	200: FetchNoteResponse
@@ -123,8 +136,8 @@ func (ns *NotesService) GetNote(w http.ResponseWriter, r *http.Request) {
 
 	body := &FetchNoteResponse{
 		Body: &Note{
-			Title:ns.Notes[index].Title,
-			Content:ns.Notes[index].Content,
+			Title:   ns.Notes[index].Title,
+			Content: ns.Notes[index].Content,
 		},
 	}
 
@@ -137,6 +150,9 @@ func (ns *NotesService) GetNote(w http.ResponseWriter, r *http.Request) {
 // Removes a single note
 //
 // Removes a single note by index
+//
+// Security:
+//   my_auth: email
 //
 // Responses:
 // 	200: Success
@@ -155,7 +171,7 @@ func (ns *NotesService) RemoveNote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ns.Notes = append(ns.Notes[:index], ns.Notes[index + 1:]...)
+	ns.Notes = append(ns.Notes[:index], ns.Notes[index+1:]...)
 }
 
 // swagger:route PUT /notes/{id} notes notes-update
@@ -163,6 +179,9 @@ func (ns *NotesService) RemoveNote(w http.ResponseWriter, r *http.Request) {
 // Updates a single note
 //
 // Updates the note at the specified index
+//
+// Security:
+//   my_auth: email
 //
 // Responses:
 // 	200: Success
@@ -189,14 +208,14 @@ func (ns *NotesService) UpdateNote(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ns.Notes[index] = Note{
-		Title: body.Title,
+		Title:   body.Title,
 		Content: body.Content,
 	}
 }
 
 // initialize the identity service endpoints
 func init() {
- 	r := pat.New()
+	r := pat.New()
 	r.Get("/info", note_service.Info)
 	r.Get("/notes/{id}", note_service.GetNote)
 	r.Delete("/notes/{id}", note_service.RemoveNote)

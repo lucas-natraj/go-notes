@@ -25,10 +25,12 @@ import (
 	"github.com/rs/cors"
 )
 
+// NotesService is the main service that manages the Notes
 type NotesService struct {
 	Notes []Note
 }
 
+// NewNotesService creates a new instance of the NotesService
 func NewNotesService() *NotesService {
 	t := new(NotesService)
 	t.Notes = make([]Note, 0)

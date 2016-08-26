@@ -138,6 +138,15 @@
                 ],
                 "parameters": [
                     {
+                        "description": "Payload",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/AddNoteRequestBody"
+                        }
+                    },
+                    {
                         "minimum": 0,
                         "type": "integer",
                         "format": "int64",
@@ -146,15 +155,6 @@
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "description": "Payload",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/AddNoteRequestBody"
-                        }
                     }
                 ],
                 "responses": {
@@ -198,6 +198,19 @@
         }
     },
     "definitions": {
+        "AddNoteRequest": {
+            "type": "object",
+            "required": [
+                "Body"
+            ],
+            "properties": {
+                "Body": {
+                    "description": "Payload",
+                    "$ref": "#/definitions/AddNoteRequestBody"
+                }
+            },
+            "x-go-package": "notes/app"
+        },
         "AddNoteRequestBody": {
             "description": "AddNoteRequestBody",
             "type": "object",
@@ -209,6 +222,36 @@
                 "title": {
                     "type": "string",
                     "x-go-name": "Title"
+                }
+            },
+            "x-go-package": "notes/app"
+        },
+        "DeleteNoteRequest": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Index of Note",
+                    "type": "integer",
+                    "format": "int64",
+                    "minimum": 0,
+                    "x-go-name": "NoteId"
+                }
+            },
+            "x-go-package": "notes/app"
+        },
+        "FetchAllNotesResponse": {
+            "description": "The response containing the list of Notes",
+            "type": "object",
+            "required": [
+                "notes"
+            ],
+            "properties": {
+                "notes": {
+                    "x-go-name": "Notes",
+                    "$ref": "#/definitions/FetchAllNotesResponseBody"
                 }
             },
             "x-go-package": "notes/app"
@@ -227,6 +270,36 @@
             },
             "x-go-package": "notes/app"
         },
+        "FetchNoteRequest": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Index of Note",
+                    "type": "integer",
+                    "format": "int64",
+                    "minimum": 0,
+                    "x-go-name": "NoteId"
+                }
+            },
+            "x-go-package": "notes/app"
+        },
+        "FetchNoteResponse": {
+            "description": "The response for a single note fetch",
+            "type": "object",
+            "required": [
+                "body"
+            ],
+            "properties": {
+                "body": {
+                    "x-go-name": "Body",
+                    "$ref": "#/definitions/Note"
+                }
+            },
+            "x-go-package": "notes/app"
+        },
         "Info": {
             "type": "object",
             "properties": {
@@ -241,6 +314,20 @@
             },
             "x-go-package": "notes/app"
         },
+        "InfoResponse": {
+            "description": "InfoResponse",
+            "type": "object",
+            "required": [
+                "body"
+            ],
+            "properties": {
+                "body": {
+                    "x-go-name": "Body",
+                    "$ref": "#/definitions/Info"
+                }
+            },
+            "x-go-package": "notes/app"
+        },
         "Note": {
             "type": "object",
             "properties": {
@@ -251,6 +338,32 @@
                 "title": {
                     "type": "string",
                     "x-go-name": "Title"
+                }
+            },
+            "x-go-package": "notes/app"
+        },
+        "Success": {
+            "description": "Success",
+            "type": "object",
+            "x-go-package": "notes/app"
+        },
+        "UpdateNoteRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "Body"
+            ],
+            "properties": {
+                "Body": {
+                    "description": "Payload",
+                    "$ref": "#/definitions/AddNoteRequestBody"
+                },
+                "id": {
+                    "description": "Index of Note",
+                    "type": "integer",
+                    "format": "int64",
+                    "minimum": 0,
+                    "x-go-name": "NoteId"
                 }
             },
             "x-go-package": "notes/app"

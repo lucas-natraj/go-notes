@@ -1,0 +1,18 @@
+hash: 4f0b45632cefed2a943654c4360a95beecff78318da3691427f774ff4097fcb0
+updated: 2016-08-26T12:09:49.571488812-07:00
+imports:
+- name: github.com/gorilla/context
+  version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
+- name: github.com/gorilla/mux
+  version: 0eeaf8392f5b04950925b8a69fe70f110fa7cbfc
+- name: github.com/gorilla/pat
+  version: cf955c3d1f2c27ee96f93e9738085c762ff5f49d
+- name: github.com/rs/cors
+  version: a62a804a8a009876ca59105f7899938a1349f4b3
+- name: github.com/rs/xhandler
+  version: ed27b6fd65218132ee50cd95f38474a3d8a2cd12
+- name: golang.org/x/net
+  version: 3a1f9ef983bc408afd0a9e63fd9c962ae853e543
+  subpackages:
+  - context
+testImports: []

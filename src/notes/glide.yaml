@@ -1,0 +1,5 @@
+package: notes
+import:
+- package: github.com/gorilla/pat
+- package: github.com/rs/cors
+  version: ^1.0.0

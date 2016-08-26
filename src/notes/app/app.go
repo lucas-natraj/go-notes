@@ -38,9 +38,9 @@ func NewNotesService() *NotesService {
 }
 
 // Singleton to store all the notes
-var note_service = NewNotesService()
+var noteService = NewNotesService()
 
-// swagger:route GET /info info info-status
+// Info swagger:route GET /info info info-status
 //
 // Get service information
 //
@@ -62,7 +62,7 @@ func (ns *NotesService) Info(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(info)
 }
 
-// swagger:route POST /notes notes notes-add
+// AddNote swagger:route POST /notes notes notes-add
 //
 // Add a new note
 //
@@ -86,10 +86,10 @@ func (ns *NotesService) AddNote(w http.ResponseWriter, r *http.Request) {
 		Content: body.Content,
 	}
 
-	ns.Notes = append(note_service.Notes, Note)
+	ns.Notes = append(noteService.Notes, Note)
 }
 
-// swagger:route GET /notes notes notes-fetchAll
+// FetchAllNotes swagger:route GET /notes notes notes-fetchAll
 //
 // Fetches all the notes
 //
@@ -110,7 +110,7 @@ func (ns *NotesService) FetchAllNotes(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(body)
 }
 
-// swagger:route GET /notes/{id} notes notes-fetchOne
+// GetNote swagger:route GET /notes/{id} notes notes-fetchOne
 //
 // Fetch a single note
 //
@@ -147,7 +147,7 @@ func (ns *NotesService) GetNote(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(body)
 }
 
-// swagger:route DELETE /notes/{id} notes notes-remove
+// RemoveNote swagger:route DELETE /notes/{id} notes notes-remove
 //
 // Removes a single note
 //
@@ -176,7 +176,7 @@ func (ns *NotesService) RemoveNote(w http.ResponseWriter, r *http.Request) {
 	ns.Notes = append(ns.Notes[:index], ns.Notes[index+1:]...)
 }
 
-// swagger:route PUT /notes/{id} notes notes-update
+// UpdateNote swagger:route PUT /notes/{id} notes notes-update
 //
 // Updates a single note
 //
@@ -218,12 +218,12 @@ func (ns *NotesService) UpdateNote(w http.ResponseWriter, r *http.Request) {
 // initialize the identity service endpoints
 func init() {
 	r := pat.New()
-	r.Get("/info", note_service.Info)
-	r.Get("/notes/{id}", note_service.GetNote)
-	r.Delete("/notes/{id}", note_service.RemoveNote)
-	r.Put("/notes/{id}", note_service.UpdateNote)
-	r.Get("/notes", note_service.FetchAllNotes)
-	r.Post("/notes", note_service.AddNote)
+	r.Get("/info", noteService.Info)
+	r.Get("/notes/{id}", noteService.GetNote)
+	r.Delete("/notes/{id}", noteService.RemoveNote)
+	r.Put("/notes/{id}", noteService.UpdateNote)
+	r.Get("/notes", noteService.FetchAllNotes)
+	r.Post("/notes", noteService.AddNote)
 
 	c := cors.New(cors.Options{
 		AllowedHeaders: []string{"*"},

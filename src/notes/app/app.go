@@ -1,4 +1,4 @@
-// Notes Service.
+// Package app Notes Service.
 //
 // Notes management service
 //

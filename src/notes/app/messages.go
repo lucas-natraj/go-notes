@@ -12,7 +12,7 @@ type Info struct {
 	Status  string `json:"status"`
 }
 
-// InfoResponse
+// InfoResponse is the response to the Info request
 //
 // swagger:response
 type InfoResponse struct {
@@ -67,7 +67,7 @@ type FetchNoteRequest struct {
 	NoteID int `json:"id" binding:"required"`
 }
 
-// The response for a single note fetch
+// FetchNoteResponse is the response when fetching a specific note
 //
 // swagger:response
 type FetchNoteResponse struct {
@@ -76,26 +76,30 @@ type FetchNoteResponse struct {
 	Body *Note `json:"body"`
 }
 
+// DeleteNoteRequest is the request for deleting a note
+//
 // swagger:parameters notes-remove
 type DeleteNoteRequest struct {
-	// Index of Note
+	// Index of the note to be removed
 	//
 	// required: true
 	// in: path
 	// minimum: 0
 	// default: 0
-	NoteId int `json:"id" binding:"required"`
+	NoteID int `json:"id" binding:"required"`
 }
 
+// UpdateNoteRequest is the request for updating a specific note
+//
 // swagger:parameters notes-update
 type UpdateNoteRequest struct {
-	// Index of Note
+	// Index of Note to be updated
 	//
 	// required: true
 	// in: path
 	// minimum: 0
 	// default: 0
-	NoteId int `json:"id" binding:"required"`
+	NoteID int `json:"id" binding:"required"`
 
 	// Payload
 	//
@@ -104,7 +108,7 @@ type UpdateNoteRequest struct {
 	Body *AddNoteRequestBody
 }
 
-// Success
+// Success is the response for a successful request
 //
 // swagger:response
 type Success struct {
